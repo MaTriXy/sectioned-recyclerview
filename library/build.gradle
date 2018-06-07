@@ -1,17 +1,24 @@
 apply plugin: 'com.android.library'
+apply from: '../dependencies.gradle'
+
+ext {
+    PUBLISH_GROUP_ID = 'com.afollestad'
+    PUBLISH_ARTIFACT_ID = 'sectioned-recyclerview'
+    PUBLISH_VERSION = versions.publishVersion
+}
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
 
     lintOptions {
         abortOnError false
     }
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 23
-        versionCode 1
-        versionName "0.2.2"
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.compileSdk
+        versionCode versions.publishVersionCode
+        versionName versions.publishVersion
     }
     buildTypes {
         release {
@@ -22,6 +29,10 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:recyclerview-v7:23.3.0'
-    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:recyclerview-v7:' + versions.supportLib
+    compile 'com.android.support:support-v4:' + versions.supportLib
+    testCompile 'com.google.truth:truth:' + versions.truth
+    testCompile 'junit:junit:' + versions.junit
 }
+
+apply from: 'https://raw.githubusercontent.com/afollestad/aidanfollestad.com/master/android-lib-release.gradle'
